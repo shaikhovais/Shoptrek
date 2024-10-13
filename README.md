@@ -15,7 +15,7 @@ Shoptrek is a fully functional E-commerce website built with Angular and Tailwin
 - **FakeStore API**: The API used for fetching product data.
 
 ## Installation and Setup : To run this project locally:
-git clone https://github.com/yourusername/shoptrek.git
-cd shoptrek 
-npm install
-ng serve --open
+- git clone https://github.com/yourusername/shoptrek.git
+- cd shoptrek 
+- npm install
+- ng serve --open
