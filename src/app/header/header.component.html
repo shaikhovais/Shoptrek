@@ -1,0 +1,198 @@
+<header class="bg-clr-green">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+            <a routerLink="/home" class="-m-1.5 p-1.5">
+                <img class="h-12 w-auto" src="../../assets/images/LogoWithNameBlack.png" alt="" />
+            </a>
+        </div>
+        <!-- Open Menu button for mobile screen -->
+        <div class="flex lg:hidden">
+            <button (click)="switchMobileMenu()" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-8 lg:justify-end">
+            <div class="relative">
+                <div>
+                    <select id="dropdown" (change)="onCategoryChange($event)" class="rounded-md bg-clr-green shadow-md font-semibold text-gray-900 cursor-pointer">
+                        <option *ngFor="let category of categories" [value]="category">
+                            {{ category }}
+                        </option>
+                    </select>
+                  </div>
+            </div>
+            <a (click)="openCart()" class="cursor-pointer text-lg font-semibold leading-6 mx-5 text-gray-900 flex items-center ">
+                Cart
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 ml-2 text-gray-900">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+            </a>  
+              
+            <a routerLink="/login" class="text-lg font-semibold leading-6 mx-5 text-gray-900 flex items-center border-black ">
+                Log Out
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"  class="h-6 w-6 ml-2 text-gray-900">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                  </svg>
+                  
+            </a>      
+        </div>
+    </nav>
+    <!-- Mobile menu, show/hide based on menu open state. -->
+    <div class="lg:hidden" role="dialog" aria-modal="true" *ngIf="showMobileMenu === true">
+        <div class="fixed inset-0 z-10"></div>
+        <div
+            class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-clr-beige px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div class="flex items-center justify-between">
+                <a href="#" class="-m-1.5 p-1.5">
+                    <span class="sr-only">Your Company</span>
+                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        alt="" />
+                </a>
+                <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+                    <span class="sr-only">Close menu</span>
+                    <svg (click)="switchMobileMenu()" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-6 flow-root">
+                <div class="-my-6 divide-y divide-gray-500/10">
+                    <div class="py-6">
+                        <select id="dropdown" (change)="onCategoryChange($event)" class="rounded-md bg-clr-beige shadow-md font-semibold text-gray-900 cursor-pointer">
+                            <option *ngFor="let category of categories" [value]="category">
+                                {{ category }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="py-6">
+                        <a (click)="openCart()" class="cursor-pointer text-lg font-semibold leading-6 mx-5 text-gray-900 flex items-center ">
+                            Cart
+                        </a>  
+                    </div>
+                    <div class="py-6">
+                        <a routerLink="/login" class="cursor-pointer text-lg font-semibold leading-6 mx-5 text-gray-900 flex items-center ">
+                            Log Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!---------------------------------------------    SHOPPING CART ---------------------------------------->
+<div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" *ngIf="showCart === true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+  
+    <div class="fixed inset-0 overflow-hidden">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+          <div class="pointer-events-auto w-screen max-w-md">
+            <div class="flex h-full flex-col overflow-y-scroll bg-clr-beige shadow-xl">
+              <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                <div class="flex items-start justify-between">
+                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                  <div class="ml-3 flex h-7 items-center">
+                    <button (click)="closeCart()" type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+                      <span class="absolute -inset-0.5"></span>
+                      <span class="sr-only">Close panel</span>
+                      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+  
+                <div class="mt-8">
+                  <div class="flow-root">
+                    <ul role="list" class="-my-6 divide-y divide-gray-200">
+                        <h1 class="text-xl my-20 font-bold text-gray-900 text-center" *ngIf="isCartEmpty == true">No products present in cart.</h1>
+                      <li class="flex py-6" *ngFor="let product of cart">
+                        <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                          <img [src]="product.image" [title]="product.title" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+                        </div>
+  
+                        <div class="ml-4 flex flex-1 flex-col">
+                          <div>
+                            <div class="flex justify-between text-base font-medium text-gray-900">
+                              <h3>
+                                <h1>{{product.title}}</h1>
+                              </h3>
+                              <p class="ml-4">{{product.price * product.cartCount}}</p>
+                            </div>
+                          </div>
+                          <div class="flex flex-1 items-end justify-between text-sm">
+                            <p class="text-gray-500">Qty {{product.cartCount}}</p>
+  
+                            <div class="flex">
+                              <button type="button" class="font-medium text-clr-dark-green hover:text-clr-mid-green" (click)="removeProductFromCart(product.id)">Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                <div class="flex justify-between text-base font-medium text-gray-900">
+                  <p>Subtotal</p>
+                  <p>$ {{totalAmount}}</p>
+                </div>
+                <div class="mt-6">
+                  <a class="cursor-pointer flex items-center justify-center rounded-md border border-transparent bg-clr-dark-green px-6 py-3 text-base font-medium text-clr-beige shadow-sm hover:bg-clr-mid-green" (click)="openPopup()" *ngIf="isCartEmpty === false">Place Order</a>
+                </div>
+                <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                  <p>
+                    <button (click)="closeCart()" type="button" class="font-medium text-clr-dark-green hover:text-clr-mid-green">
+                      Continue Shopping
+                      <span aria-hidden="true"> &rarr;</span>
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!---------------------------------------------    POPUP ---------------------------------------->
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" *ngIf="showPopup === true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+          <div class="bg-clr-beige px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                <h3 *ngIf="confirmOrder === false" class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Order Confirmation</h3>
+                <h3 *ngIf="confirmOrder === true" class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Order ID {{orderID}}</h3>
+                <div class="mt-2">
+                  <p *ngIf="confirmOrder === false" class="text-sm text-gray-500">Are you sure you want to place order? Your total amount to be paid at delivery is $ {{totalAmount}}.</p>
+                  <p *ngIf="confirmOrder === true" class="text-sm text-gray-500">Your order has been successfully placed and will be delivered by {{deliveryDate}}.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-clr-beige px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6" *ngIf="confirmOrder === false">
+            <button  type="button" class="inline-flex w-full justify-center rounded-md bg-clr-dark-green px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-clr-mid-green sm:ml-3 sm:w-auto" 
+            (click)="checkout()">Place Order</button>
+            <button (click)="closePopup()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-clr-beige px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-clr-beige sm:mt-0 sm:w-auto">Cancel</button>
+          </div>
+          <div class="bg-clr-beige px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6" *ngIf="confirmOrder === true">
+            <button (click)="closePopup()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-clr-dark-green px-3 py-2 text-sm font-semibold text-clr-beige shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-clr-mid-green sm:mt-0 sm:w-auto">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
