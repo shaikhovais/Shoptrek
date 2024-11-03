@@ -2,6 +2,9 @@
 
 Shoptrek is a fully functional E-commerce website built with Angular and Tailwind CSS. The project fetches product data from the [FakeStore API](https://fakestoreapi.com/) and allows users to browse, filter, and purchase products.
 
+## Hosted Link
+https://shoptrek.netlify.app/login
+
 ## Features
 - **User Authentication**: The project starts with a login form. Upon successful login(currently any email and password is allowed), the product data is fetched from FakeStore API.
 - **Product Filtering**: Users can filter products based on different categories.
